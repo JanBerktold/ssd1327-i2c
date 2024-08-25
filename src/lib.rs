@@ -42,7 +42,7 @@ use embedded_graphics_core::{
 /// SSD1327 I2C driver container
 pub struct SSD1327I2C<I2C>
 where
-    I2C: embedded_hal::blocking::i2c::Write,
+    I2C: embedded_hal::i2c::I2c,
 {
     i2c: I2C,
     slave_address: u8,
@@ -54,7 +54,7 @@ where
 
 impl<I2C> SSD1327I2C<I2C>
 where
-    I2C: embedded_hal::blocking::i2c::Write,
+    I2C: embedded_hal::i2c::I2c,
 {
     /// Create a new SSD1327I2C object with custom slave adress, width and height
     pub fn with_addr_wh(i2c: I2C, slave_address: u8, width: u8, height: u8) -> Self {
@@ -302,7 +302,7 @@ pub enum Commands {
 #[cfg(feature = "graphics")]
 impl<I2C> DrawTarget for SSD1327I2C<I2C>
 where
-    I2C: embedded_hal::blocking::i2c::Write,
+    I2C: embedded_hal::i2c::I2c,
 {
     type Color = Gray4;
 
@@ -336,7 +336,7 @@ where
 #[cfg(feature = "graphics")]
 impl<I2C> OriginDimensions for SSD1327I2C<I2C>
 where
-    I2C: embedded_hal::blocking::i2c::Write,
+    I2C: embedded_hal::i2c::I2c,
 {
     fn size(&self) -> Size {
         Size::new(self.width as u32, self.height as u32)
